@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.OrderDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="express_id" jdbcType="BIGINT" property="expressId" />
+    <result column="express_name" jdbcType="VARCHAR" property="expressName" />
+    <result column="express_price" jdbcType="DOUBLE" property="expressPrice" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+    <result column="buy_count" jdbcType="INTEGER" property="buyCount" />
+    <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+  </resultMap>
+  <sql id="OrderDetailColumns">
+   id,
+   order_id,
+   goods_id,
+   seller_id,
+   express_id,
+   express_name,
+   express_price,
+   goods_img,
+   buy_count,
+   goods_price,
+   goods_name
+  </sql>
+  <select id="getByOrderId" resultMap="BaseResultMap">
+    select <include refid="OrderDetailColumns"/>
+    from order_detail
+    where order_id = #{orderId}
+  </select>
+</mapper>

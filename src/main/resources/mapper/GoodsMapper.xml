@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="original_price" jdbcType="DOUBLE" property="originalPrice" />
+    <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail" />
+    <result column="goods_number" jdbcType="INTEGER" property="goodsNumber" />
+    <result column="heat" jdbcType="INTEGER" property="heat" />
+    <result column="picture1" jdbcType="VARCHAR" property="picture1" />
+    <result column="picture2" jdbcType="VARCHAR" property="picture2" />
+    <result column="picture3" jdbcType="VARCHAR" property="picture3" />
+    <result column="picture4" jdbcType="VARCHAR" property="picture4" />
+    <result column="picture5" jdbcType="VARCHAR" property="picture5" />
+    <result column="jb_status" jdbcType="TINYINT" property="jbStatus" />
+    <result column="sell_status" jdbcType="TINYINT" property="sellStatus" />
+    <result column="created" jdbcType="DATE" property="created" />
+    <result column="updated" jdbcType="DATE" property="updated" />
+  </resultMap>
+  <sql id="goodsColumns">
+   a.id,
+   a.category_id,
+   a.seller_id,
+   a.goods_name,
+   a.price,
+   a.original_price,
+   a.goods_detail,
+   a.goods_number,
+   a.heat,
+   a.picture1,
+   a.picture2,
+   a.picture3,
+   a.picture4,
+   a.picture5,
+   a.jb_status,
+   a.sell_status,
+   a.created,
+   a.updated,
+   b.category_name as "category.categoryName"
+  </sql>
+    <sql id="goodsJoins">
+       LEFT JOIN  category as b ON a.category_id = b.id
+    </sql>
+  <select id="getChosen" resultMap="BaseResultMap">
+    SELECT
+    <include refid="goodsColumns"></include>
+    FROM
+    goods as a
+      <include refid="goodsJoins"></include>
+    WHERE
+    jb_status = 1
+  </select>
+  <select id="getCheaper" resultMap="BaseResultMap">
+    SELECT
+    <include refid="goodsColumns"></include>
+    FROM
+    goods as a
+      <include refid="goodsJoins"></include>
+    WHERE
+    jb_status = 2
+  </select>
+    <select id="getByCate" resultMap="BaseResultMap">
+        SELECT
+        <include refid="goodsColumns"></include>
+        FROM
+        goods as a
+        <include refid="goodsJoins"></include>
+        WHERE
+        category_id = #{categoryId}
+    </select>
+    <select id="goodsPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="goodsColumns"></include>
+        from goods as a
+        <include refid="goodsJoins"></include>
+        LIMIT #{start},#{length}
+    </select>
+    <select id="getTotalSum" resultType="double">
+        select sum(price)
+        from goods as a
+        <include refid="goodsJoins"></include>
+        where sell_status = 0
+    </select>
+    <select id="getGoodsCount" resultType="int">
+        select count(id)
+        from goods as a
+    </select>
+    <select id="GoodsCountBySellerId" resultType="int">
+        select count(seller_id)
+        from goods as a
+        where
+        seller_id = #{sellerId}
+    </select>
+</mapper>

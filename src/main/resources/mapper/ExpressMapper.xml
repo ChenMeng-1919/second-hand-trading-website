@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.ExpressMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.Express">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="express_name" jdbcType="VARCHAR" property="expressName" />
+    <result column="express_price" jdbcType="DOUBLE" property="expressPrice" />
+  </resultMap>
+  <select id="expressPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+     id,
+     express_name,
+     express_price
+    FROM
+    express
+    LIMIT #{start},#{length}
+  </select>
+</mapper>

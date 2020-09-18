@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.Banner">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="banner_name" jdbcType="VARCHAR" property="bannerName" />
+    <result column="banner_price" jdbcType="DOUBLE" property="bannerPrice" />
+    <result column="banner_detail" jdbcType="VARCHAR" property="bannerDetail" />
+    <result column="banner_number" jdbcType="INTEGER" property="bannerNumber" />
+    <result column="img1" jdbcType="VARCHAR" property="img1" />
+    <result column="img2" jdbcType="VARCHAR" property="img2" />
+    <result column="img3" jdbcType="VARCHAR" property="img3" />
+    <result column="sell_status" jdbcType="TINYINT" property="sellStatus" />
+    <result column="created" jdbcType="DATE" property="created" />
+    <result column="updated" jdbcType="DATE" property="updated" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,78 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>底部搜索</title>
+</head>
+
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="shop-list-v3-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">[[${buttonSearch}]]</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/index">主页</a></li>
+                <li><a class="active" th:text="${buttonSearch}"></a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="widget-product-list">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="filter-block bd">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="box box-view" >
+                                    <span>一共有[[${size}]]件关于[[${buttonSearch}]]的商品</span>
+                                    <div class="button-view">
+                                        <span class="col"><i class="ion-ios-keypad fa-3a"></i></span>
+                                        <span class="list"><i class="icon-grid-4"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="product-list grid_full grid_sidebar grid-uniform">
+                            <div class="product-list-item" th:each="goods:${search}">
+                                <div class="product-item-img">
+                                    <a th:href="@{'/goods/detail/'+${goods.id}}"><img th:src="${goods.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="label label-2 red label-top-20"></div>
+                                </div>
+                                <div class="product-item-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${goods.id}}" title="">[[${goods.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price black">[[${goods.price}]]</span>
+                                    </div>
+                                    <p>[[${goods.goodsDetail}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-pagination" >
+                            <div th:if="${size == 0}">
+                                <h3>暂无收录有关[[${buttonSearch}]]的商品</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end -->
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-slider.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script>
+
+</script>
+</body>
+</html>

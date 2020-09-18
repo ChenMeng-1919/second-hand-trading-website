@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.ShopOrderMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.ShopOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="express_id" jdbcType="BIGINT" property="expressId" />
+    <result column="order_price" jdbcType="DOUBLE" property="orderPrice" />
+    <result column="order_remarks" jdbcType="VARCHAR" property="orderRemarks" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="created" jdbcType="DATE" property="created" />
+    <result column="over_time" jdbcType="DATE" property="overTime" />
+  </resultMap>
+  <sql id="OrderColumns">
+   a.id,
+   a.user_id,
+   a.express_id,
+   a.order_price,
+   a.order_remarks,
+   a.status,
+   a.created,
+   a.over_time,
+   b.username as "xx_user.username",
+   e.express_name as "express.expressName"
+  </sql>
+    <sql id="userJoins">
+       LEFT JOIN  xx_user as b ON a.user_id = b.id
+    </sql>
+    <sql id="expressJoins">
+       LEFT JOIN  express as e ON a.express_id = e.id
+    </sql>
+  <select id="orderPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="OrderColumns"></include>
+    FROM shop_order as a
+    <include refid="userJoins"></include>
+    <include refid="expressJoins"></include>
+      LIMIT #{start},#{length}
+  </select>
+
+</mapper>

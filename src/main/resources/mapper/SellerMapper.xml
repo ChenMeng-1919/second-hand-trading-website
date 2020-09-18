@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.SellerMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.Seller">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="reputation" jdbcType="VARCHAR" property="reputation" />
+    <result column="created" jdbcType="DATE" property="created" />
+    <result column="updated" jdbcType="DATE" property="updated" />
+  </resultMap>
+  <sql id="SellerColumns">
+    id,
+    seller_name,
+    password,
+    email,
+    phone,
+    city,
+    reputation,
+    created,
+    updated
+  </sql>
+  <select id="sellerPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+  SELECT
+  <include refid="SellerColumns"></include>
+  FROM
+  seller
+  LIMIT #{start},#{length}
+  </select>
+  <select id="getSellerCount" resultType="int">
+    select count(id)
+    from seller
+  </select>
+</mapper>

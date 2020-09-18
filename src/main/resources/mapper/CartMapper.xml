@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzh.xx.transaction.mapper.CartMapper">
+  <resultMap id="BaseResultMap" type="com.jzh.xx.transaction.domain.Cart">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="buy_count" jdbcType="INTEGER" property="buyCount" />
+    <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+  </resultMap>
+  <sql id="CartColumns">
+   id,
+   user_id,
+   seller_id,
+   goods_id,
+   buy_count,
+   goods_price,
+   goods_name,
+   goods_img
+  </sql>
+  <select id="getByUserIdAndSellerId" resultMap="BaseResultMap">
+    select
+    <include refid="CartColumns"/>
+    from cart
+    where user_id = #{userId},goods_id = #{goodsId}
+  </select>
+  <select id="getByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="CartColumns"/>
+    from cart
+    where user_id = #{userId}
+  </select>
+    <delete id="deleteByUserIdAndGoodsId">
+    delete from cart
+    where user_id = #{userId} and goods_id = #{goodsId}
+    </delete>
+</mapper>

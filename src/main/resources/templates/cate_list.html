@@ -1,0 +1,102 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>商品详情</title>
+</head>
+
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="shop-list-v3-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">分类页面</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/index">主页</a></li>
+                <li><a class="active" th:text="${category.categoryName}"></a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="widget-product-list">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="filter-block">
+                        <div class="filter-block-shop filter-cate">
+                            <div class="block-title">
+                                <h3>Categories</h3>
+                            </div>
+                            <div class="block-content">
+                                <ul>
+                                    <li class="active" th:each="categoryTwo:${categoryTwos}" th:if="${categoryTwo.categoryId == category.id}">
+                                        <a th:href="@{'/buttonSearch?buttonSearch='+${categoryTwo.twoName}}" >[[${categoryTwo.twoName}]]</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="filter-block bd">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="box box-view" >
+                                    <span>一共有[[${goodsList.total}]]件分类商品</span>
+                                    <div class="button-view">
+                                        <span class="col"><i class="ion-ios-keypad fa-3a"></i></span>
+                                        <span class="list"><i class="icon-grid-4"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="product-list grid_full grid_sidebar grid-uniform">
+                            <div class="product-list-item" th:each="goods:${goodsList.list}">
+                                <div class="product-item-img">
+                                    <a th:href="@{'/goods/detail/'+${goods.id}}"><img th:src="${goods.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="label label-2 red label-top-20">Hot</div>
+                                </div>
+                                <div class="product-item-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${goods.id}}" title="">[[${goods.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price black">[[${goods.price}]]</span>
+                                    </div>
+                                    <p>[[${goods.goodsDetail}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-pagination" >
+                            <div th:if="${goodsList.total == 0}">
+                                <h3>暂无收录该分类的商品</h3>
+                            </div>
+                            <ul class="pagination" th:if="${goodsList.total != 0}">
+                                <li><a th:if="${goodsList.pageNum == 1}" href="#"><i class="ion-chevron-left"></i></a></li>
+                                <li ><a th:if="${goodsList.pageNum > 1}" th:href="@{'/frontCategory/list/'+${category.id}+'?pageNum='+${goodsList.pageNum - 1}}"></a></li>
+                                <li th:each="i:${#numbers.sequence(1,goodsList.pageTotal)}"><a th:href="@{'/frontCategory/list/'+${category.id}+'?pageNum='+${i}}">[[${i}]]</a></li>
+                                <li><a  th:if="${goodsList.pageNum >= goodsList.pageTotal}" href="#"></a></li>
+                                <li><a th:if="${goodsList.pageNum < goodsList.pageTotal}" th:href="@{'/frontCategory/list/'+${category.id}+'?pageNum='+${goodsList.pageNum + 1}}"><i class="ion-chevron-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end -->
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-slider.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script>
+
+</script>
+</body>
+</html>

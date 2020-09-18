@@ -1,0 +1,155 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>商品详情</title>
+</head>
+
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="shop-single-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">商品详情</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/">主页</a></li>
+                <li><a href="#shop">分类</a></li>
+                <li><a class="active" href="#detail">详细信息</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget-shop-single">
+            <div class="row">
+                <div class="col-md-5" >
+                    <div class="shop-single-item-img">
+                        <div class="main-img">
+                            <div class="main-img-item">
+                                <a th:href="${goods.picture1}"><img th:src="${goods.picture1}" alt="images" class="img-responsive"></a>
+                            </div>
+                        </div>
+                        <ul class="multiple-img-list">
+                            <li>
+                                <div class="product-col">
+                                    <div class="img">
+                                        <a th:href="${goods.picture1}"><img th:src="${goods.picture1}" alt="images" class="img-responsive"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-col">
+                                    <div class="img">
+                                        <a th:href="${goods.picture2}"><img th:src="${goods.picture2}" alt="images" class="img-responsive"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-col">
+                                    <div class="img">
+                                        <a th:href="${goods.picture3}"><img th:src="${goods.picture3}" alt="images" class="img-responsive"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-col">
+                                    <div class="img">
+                                        <a th:href="${goods.picture4}"><img th:src="${goods.picture4}" alt="images" class="img-responsive"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-col">
+                                    <div class="img">
+                                        <a th:href="${goods.picture5}"><img th:src="${goods.picture5}" alt="images" class="img-responsive"></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="shop-sing-item-detail">
+                        <h3><a href="#">[[${goods.goodsName}]]</a></h3>
+                        <input type="hidden" name="id" th:value="${goodsId}"/>
+                        <div class="prod-price">
+                            <span class="price">￥<strong style="font-size: 28px">[[${goods.price}]]</strong></span>
+                        </div>
+                        <div class="description">
+                            <p>[[${goods.goodsDetail}]]</p>
+                            <ul>
+                                <li>More than just pitch black, get the best shades of black with Triple Black Technology. </li>
+                                <li>HDR 1000 mirrors the high contrast and vividness the way movie makers intended</li>
+                                <li>Get richer colors and deeper contrast with UHD Dimming</li>
+                            </ul>
+                        </div>
+                        <div class="group-button">
+                            <div class="button-ver2">
+                                <a href="javascript:void(0);" th:onclick="'addToCart('+${goods.id}+')'" class="link-ver1 addcart-ver2"><span class="icon"></span>我想要</a>
+                            </div>
+                        </div>
+                        <div class="product-feature">
+                            <ul class="product-feature-1">
+                                <li><strong>库存:</strong> [[${goods.goodsNumber}]]</li>
+                                <li><strong>卖家:</strong> <a th:href="@{'/sellerInfo/detail/'+${goods.sellerId}}">[[${seller.sellerName}]]</a></li>
+                            </ul>
+                            <ul class="product-feature-2">
+                                <li><strong>上架时间:</strong>[[${#dates.format(goods.created,'yyyy-MM-dd')}]]</li>
+                                <li><strong>物品分类:</strong><a th:href="@{'/frontCategory/list/'+${goods.categoryId}}">[[${category.categoryName}]]</a></li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 20px;color: dodgerblue;"><h5>卖家信誉：<strong style="color: #EF3375;">[[${seller.reputation}]]</strong></h5></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="padding-bottom: 50px;"></div>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script>
+    function addToCart(goodsId) {
+        alert('添加成功');
+        let sellerId = [[${seller.id}]]
+        $.ajax({
+            url: '/cart/goods/add',
+            type: 'post',
+            data: {
+                "goodsId": goodsId,
+                "sellerId": sellerId
+            },
+            success: function (data) {
+                window.location.reload();
+            },
+            error:function (data) {
+                if (data.status = 401){
+                    alert("请先登录");
+                    window.location.href = '/login';
+                }
+            }
+        })
+    }
+
+    function deleteGoods(goodsId) {
+        alert('确定要删除吗？');
+        let sellerId = [[${seller.id}]]
+        $.ajax({
+            url: '/cart/goods/delete',
+            type: 'post',
+            data: {
+                "goodsId": goodsId
+            },
+            success: function (data) {
+                window.location.reload();
+            }
+        })
+    }
+</script>
+</body>
+</html>

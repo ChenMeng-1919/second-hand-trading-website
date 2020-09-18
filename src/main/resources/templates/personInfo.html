@@ -1,0 +1,158 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>个人信息</title>
+</head>
+
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="checkout-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">账户信息</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/">主页</a></li>
+                <li><a class="active" href="#cart">个人信息</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="orders">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="billing-details">
+                        <div class="billing-details-heading">
+                            <h2 class="billing-title" style="padding-bottom: 30px;">
+                                个人信息
+                            </h2>
+                        </div>
+                        <div class="billing-details-content">
+                            <input type="hidden" name="id" th:value="${user.id}"/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-12">
+                                        <strong>用户名：</strong>
+                                        <input type="text" name="username" class="form-control noread" th:value="${user.username}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-3 col-xs-12">
+                                        <strong>密码：</strong>
+                                        <input type="password" name="password" class="form-control noread" th:value="${user.password}" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <strong>电子邮箱：</strong>
+                                        <input type="text" name="email" class="form-control noread" th:value="${user.email}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <strong>手机号码</strong>
+                                        <input type="text" name="phone" class="form-control noread" th:value="${user.phone}" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2 col-xs-12">
+                                        <strong>姓名：</strong>
+                                        <input type="text" name="realname" class="form-control noread" th:value="${user.realname}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-8 col-xs-12">
+                                        <strong>详细地址：</strong>
+                                        <input type="text" name="address" class="form-control noread" th:value="${user.address}" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <button class="btn-checkout edit" id="editInfo" onclick="editFront(this)"><strong>编辑</strong></button>
+                          <button class="btn-checkout save" id="saveInfo" onclick="save()" style="display: none"><strong>保存</strong></button>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-cart-form">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <table class="table shop_table">
+                            <thead>
+                            <tr>
+                                <th class="product-thumbnail">我的订单</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="order_item" th:each="bought:${orderVO.orderDetails}">
+                                <td class="product-thumbnail"><a th:href="@{'/goods/detail/'+${bought.goodsId}}"><img th:src="${bought.goodsImg}" alt="images" class="img-responsive" width="100px" height="75px"></a></td>
+                                <td class="product-name">
+                                    <a th:href="@{'/goods/detail/'+${bought.goodsId}}">[[${bought.goodsName}]]</a>
+                                </td>
+                                <td class="product-price">
+                                    <p class="price">￥[[${bought.goodsPrice}]]</p>
+                                </td>
+                                <td class="product-price">
+                                    <p class="price">[[${bought.buyCount}]]</p>
+                                </td>
+                                <td class="product-price product-subtotal" th:each="time:${orderVO.createTime}">
+                                    <p class="price">[[${#dates.format(time,'yyyy-MM-dd')}]]</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script>
+    function editFront(item) {
+        var _readonly = $('.noread');
+        alert("确定要修改吗？");
+        _readonly.removeAttr("readonly");
+        $(item).attr("style","display:none");
+        $(".save").removeAttr("style");
+    }
+
+    function save() {
+        let _userId = '[[${user.id}]]';
+        let _username = $('input[name="username"]').val();
+        let _password = $('input[name="password"]').val();
+        let _email = $('input[name="email"]').val();
+        let _phone = $('input[name="phone"]').val();
+        let _realname = $('input[name="realname"]').val();
+        let _address = $('input[name="address"]').val();
+        $.ajax({
+            url: '/personInfo/save',
+            type: 'post',
+            data: {
+                "id":_userId,
+                "username": _username,
+                "password": _password,
+                "email": _email,
+                "phone":_phone,
+                "realname":_realname,
+                "address":_address
+            },
+            dataType:'json',
+            success:function (data) {
+                if (data.status == 200){
+                    alert(data.message);
+                }
+                else {
+                    alert(data.message);
+                }
+                window.location.reload();
+            }
+        })
+    }
+</script>
+</body>
+</html>

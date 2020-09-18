@@ -1,0 +1,136 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>购物车</title>
+</head>
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="checkout-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">购物车</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="#home">主页</a></li>
+                <li><a class="active" href="#cart">购物车</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="breadcrumb" style="padding-left: 114px;">
+            <li>
+                <a href="checkout-1.html" class="active">01. 购物车</a>
+            </li>
+            <li>
+                <a href="checkout-2.html">02. 订单完善</a>
+            </li>
+            <li>
+                <a href="checkout-3.html" title="">03. 支付完成</a>
+            </li>
+        </ul>
+        <div class="checkout-cart-form">
+            <div class="row">
+                <div class="col-md-8 col-sm-12">
+                    <table class="table shop_table">
+                        <thead>
+                        <tr>
+                            <th class="product-thumbnail">商品</th>
+                            <th class="product-name">商品名称</th>
+                            <th class="product-price">价格</th>
+                            <th class="quantity">数量</th>
+                            <th class="product-subtotal">总价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="cart_item" th:each="cartGood:${cartGoods}">
+                            <td class="product-thumbnail"><a th:href="@{'/goods/detail/'+${cartGood.goodsId}}"><img th:src="${cartGood.goodsImg}" width="100px" height="75px" alt="images" class="img-responsive"></a></td>
+                            <td class="product-name">
+                                <a th:href="@{'/goods/detail/'+${cartGood.goodsId}}">[[${cartGood.goodsName}]]</a>
+                            </td>
+                            <td class="product-price">
+                                <p class="price">￥[[${cartGood.goodsPrice}]]</p>
+                            </td>
+                            <td class="product-quantity">
+                                <div class="quantity">
+                                    <input type="text" name="quantity" th:value="${cartGood.buyCount}">
+                                </div>
+                            </td>
+                            <td class="product-price product-subtotal">
+                                <p class="price" th:text="${cartGood.buyCount} * ${cartGood.goodsPrice}"></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="aside-shopping-cart-total">
+                        <h2>购物清单</h2>
+                        <ul>
+                            <li><span class="text">合计:</span><span class="cart-number">￥[[${total}]]</span></li>
+                            <li style="height:100px;float: left"><span class="text">快递:</span>
+                                <div class="shipping">
+                                    <div th:each="express:${expresses}" >
+                                        <input type="radio" name="express" th:value="${express.id}"  th:id="${'radio'+expressStat.index}" >
+                                        <label th:for="${'radio'+expressStat.index}" >[[${express.expressName}]] : ￥ [[${express.expressPrice}]] </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><span class="text calculate">合计运费</span>
+                            </li>
+                            <li><span class="text" style="height:30px">总计:</span><span class="cart-number big-total-number">——</span></li>
+                        </ul>
+                        <div class="process">
+                            <button type="button" class="btn-checkout" onclick="creat()">继续结帐</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script th:inline="javascript">
+
+    var total = [[${total}]];
+    var _check;
+    $("[id^=radio]").change(function(){
+        var label = $("[for="+this.id+"]").text();
+        var fee = label.substring(label.indexOf("￥")+1);
+        fee = Number(fee);
+        $(".big-total-number").text('￥'+(total+fee));
+        _check = $('input[name="express"]:checked').val();
+        console.log(_check);
+    })
+
+    function creat() {
+        var _expressId =_check ;
+        if (_expressId == null){
+            alert("您还未选择快递方式！");
+            return;
+        }
+        else {
+            $.ajax({
+                url: '/order/create',
+                type: 'post',
+                data: {
+                    "expressId": _expressId
+                },
+                dataType: "json",
+                success: function (data) {
+                    $(location).attr('href','/checkout/'+data);
+                }
+            })
+        }
+    }
+
+
+</script>
+</body>
+</html>

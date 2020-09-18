@@ -1,0 +1,104 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>卖家信息</title>
+</head>
+
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="checkout-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">账户信息</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/">主页</a></li>
+                <li><a class="active" href="#cart">卖家信息</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="orders">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="billing-details">
+                        <div class="billing-details-heading">
+                            <h2 class="billing-title" style="padding-bottom: 30px;">
+                                卖家信息
+                            </h2>
+                        </div>
+                        <div class="billing-details-content">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-12">
+                                        <strong>卖家名：</strong>
+                                        <input type="text" name="first_name" class="form-control" th:value="${seller.sellerName}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-3 col-xs-12">
+                                        <strong>所在城市：</strong>
+                                        <input  type="text" name="address" class="form-control" th:value="${seller.city}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-2 col-xs-12">
+                                        <strong>卖家信誉：</strong>
+                                        <input style="border:double;color: #EF3375" class="form-control" th:value="${seller.reputation}" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <strong>电子邮箱：</strong>
+                                        <input type="text" name="email" class="form-control" th:value="${seller.email}"  readonly="readonly">
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                        <strong>手机号码</strong>
+                                        <input type="text" name="phone" class="form-control" th:value="${seller.phone}" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-cart-form">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <table class="table shop_table">
+                            <thead>
+                            <tr>
+                                <th class="product-thumbnail">他的闲置</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="cart_item" th:each="sellerGoods:${goods}">
+                                <td class="product-thumbnail"><a th:href="@{'/goods/detail/'+${sellerGoods.id}}"><img th:src="${sellerGoods.picture1}" alt="images" class="img-responsive" width="100px" height="75px"></a></td>
+                                <td class="product-name">
+                                    <a th:href="@{'/goods/detail/'+${sellerGoods.id}}">[[${sellerGoods.goodsName}]]</a>
+                                </td>
+                                <td class="product-price">
+                                    <p class="price">￥[[${sellerGoods.price}]]</p>
+                                </td>
+                                <td class="product-price">
+                                    <p class="price">[[${sellerGoods.goodsNumber}]]</p>
+                                </td>
+                                <td class="product-price product-subtotal">
+                                    <p class="price">[[${#dates.format(sellerGoods.created,'yyyy-MM-dd')}]]</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>闲闲二手交易网站</title>
+</head>
+
+<body>
+<header>
+    <div class="top-nav hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="right-nav">
+                        <ul th:if="${user == null}">
+                        <li><a href="/register"><i class="ion-ios-personadd fa-1a" aria-hidden="true" style="color: #00aaaa" ></i>创建账户</a></li>
+                        <li><a href="/login"><i class="ion-log-in fa-1a" aria-hidden="true" style="color: #00d95a"></i>登录</a></li>
+                        </ul>
+                        <ul th:if="${user != null}">
+                            <li><a th:href="@{'/personInfo/detail/'+${user.id}}"><i class="fa fa-user" aria-hidden="true" style="color: #0a6aa1"></i>[[${user.username}]]</a></li>
+                            <li><a th:href="@{'/logout'}" ><i class="fa fa-remove" aria-hidden="true" style="color: #e02222"></i>登出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-8 col-xs-7 logo">
+                    <a href="#" title="Clickbuy"><img src="/assets/xximg/title.jpg" alt="images" class="img-reponsive"></a>
+                </div>
+                <div class="col-md-9 col-sm-4 col-xs-5 nextlogo">
+                    <div class="block block-2">
+                        <div class="cart">
+                            <a href="#" title="" id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <div class="photo photo-cart">
+                                    <img src="/assets/img/cart.png" alt="images" class="img-reponsive">
+                                    <span class="lbl">[[${goodsCount}]]</span>
+                                </div>
+                                <p class="inform inform-cart">
+                                    <span class="strong">购物车<br></span>
+                                    <span class="price-cart">￥[[${total}]]</span>
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-cart" aria-labelledby="label3">
+                                <div th:if="${cartGoods.size() == 0}">
+                                    您还没有添加任何商品！
+                                </div>
+                                <ul>
+                                    <li th:each="cartGood:${cartGoods}">
+                                        <div class="item-order">
+                                            <div class="item-photo">
+                                                <a th:href="@{'/goods/detail/'+${cartGood.goodsId}}"><img th:src="${cartGood.goodsImg}" alt="images" class="img-responsive" width="65px" height="70px"></a>
+                                            </div>
+                                            <div class="item-content">
+                                                <h3><a th:href="@{'/goods/detail/'+${cartGood.goodsId}}" title="">[[${cartGood.goodsName}]]</a></h3>
+                                                <p class="price black">[[${cartGood.goodsPrice}]]</p>
+                                                <p class="quantity">x[[${cartGood.buyCount}]]</p>
+                                            </div>
+                                        </div>
+                                        <div class="btn-delete"><a href="javascript:void(0);" title="" class="btndel" th:onclick="'deleteGoods('+${cartGood.goodsId}+')'">x</a></div>
+                                    </li>
+                                </ul>
+                                <div class="content-1">
+                                    <span class="total">总共: <strong class="price black">[[${total}]]</strong></span>
+                                    <span class="quantity"><strong class="number">[[${goodsCount}]]</strong> products</span>
+                                </div>
+                                <div class="content-2">
+                                    <a th:if="${user != null}" th:href="@{'/cart/detail/'+${user.id}}" class="addcart">去支付</a>
+                                    <a th:if="${user == null}" href="/login" class="viewport" style="color: green">请先登录</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block block-1">
+                        <div class="protect">
+                            <div class="photo">
+                                <svg width="28" height="33" id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180.05 214.27">
+                                    <title>security</title>
+                                    <path d="M196.93,55.17c-.11-5.78-.21-11.25-.21-16.54a7.5,7.5,0,0,0-7.5-7.5c-32.07,0-56.5-9.22-76.85-29a7.5,7.5,0,0,0-10.46,0c-20.35,19.79-44.77,29-76.84,29a7.5,7.5,0,0,0-7.5,7.5c0,5.29-.1,10.76-.22,16.54-1,53.84-2.44,127.57,87.33,158.68a7.49,7.49,0,0,0,4.91,0C199.36,182.74,198,109,196.93,55.17ZM107.13,198.81c-77-28-75.82-89.23-74.79-143.35.06-3.25.12-6.4.16-9.48,30-1.27,54.06-10.37,74.63-28.28,20.57,17.91,44.59,27,74.63,28.28,0,3.08.1,6.23.16,9.48C183,109.58,184.12,170.84,107.13,198.81Z" transform="translate(-17.11 0)" />
+                                    <path d="M133,81.08l-36.2,36.2L81.31,101.83a7.5,7.5,0,0,0-10.61,10.61l20.75,20.75a7.5,7.5,0,0,0,10.61,0l41.5-41.5A7.5,7.5,0,1,0,133,81.08Z" transform="translate(-17.11 0)" />
+                                </svg>
+                            </div>
+                            <p class="inform">
+                                <span class="strong">信息<br></span> 安全
+                            </p>
+                        </div>
+                        <div class="return">
+                            <div class="photo">
+                                <svg width="30" height="30" id="Capa_2" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612.85">
+                                    <title>update-arrows</title>
+                                    <path d="M600.48,221.79c-14.43-50.5-40.14-94.33-77.94-132.13a300.48,300.48,0,0,0-100-66.57C385,7.84,346.58,0,306.78,0V37.47c69.91,0,138.93,27,190,78.28A264.15,264.15,0,0,1,564.7,231.16c12.55,43.87,14.38,88,4.68,132.47A261.77,261.77,0,0,1,509.83,482l-52.18-51.18V558.33l130.13,2-52.18-52.18Q587.78,448.93,604.84,373A301.45,301.45,0,0,0,600.48,221.79Z" transform="translate(-0.43)" />
+                                    <path d="M47.85,382A267.44,267.44,0,0,1,43.5,249.56,263.58,263.58,0,0,1,103.38,130.8l52.18,51.85V54.53L25.44,53.19l51.85,51.52Q25.11,163.92,8,239.85a301.82,301.82,0,0,0,4.35,151.54c14.34,50.2,40.14,94,77.95,131.81a300.35,300.35,0,0,0,100,66.57,306.59,306.59,0,0,0,116.42,23.08v-36.8a267,267,0,0,1-190.35-78.94C83.54,464.09,60.41,425.9,47.85,382Z" transform="translate(-0.43)" />
+                                </svg>
+                            </div>
+                            <p class="inform">
+                                <span class="strong">免费<br></span> 退换
+                            </p>
+                        </div>
+                    </div>
+                    <div class="search hidden-xs hidden-sm">
+                        <form action="search" class="search-form">
+                            <input type="text" name="search" class="form-control" placeholder="在这里搜索">
+                            <button type="submit" class="search-icon"></button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-6 column-left">
+                    <aside id="column-left">
+                        <nav class="navbar-default">
+                            <div class="menu-heading js-nav-menu">全部分类</div>
+                            <div class="vertical-wrapper js-dropdown-menu js-dropdown-open active">
+                                <ul class="level0">
+                                    <li th:each="category : ${categories}">
+                                        <a th:href="@{'/frontCategory/list/'+${category.id}}">[[${category.categoryName}]]</a>
+                                        <div class="dropdown-content" >
+                                            <ul class="level1">
+                                                <li class="sub-menu col-3">
+                                                    <ul class="level2">
+                                                        <li class="col-inner" th:each="categoryTwo : ${categoryTwos}" th:if="${categoryTwo.categoryId == category.id}"><a th:href="@{'/buttonSearch?buttonSearch='+${categoryTwo.twoName}}">[[${categoryTwo.twoName}]]</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                            <div class="banner">
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ><a href="#">更多</a></span></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </aside>
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-6 column-right">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="menu-title">MENU</span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="menubar js-menubar">
+                            <li class=" menu-homepage menu-item-has-child dropdown">
+                                <a href="/" title="/"><i class="fa fa-home"></i>主页</a>
+                                <span class="plus js-plus-icon"></span>
+                            </li>
+                            <li class="menu-collection-page menu-item-has-child dropdown">
+                                <a th:href="@{'/frontCategory/subheading/2'}" title="new">白菜市场</a>
+                            </li>
+                            <li class="dropdown menu-blog-page menu-item-has-child">
+                                <a th:href="@{'/frontCategory/subheading/1'}" title="Blog">精选市场</a>
+                            </li>
+                            <li class="dropdown menu-blog-page menu-item-has-child">
+                                <a th:href="@{'/frontCategory/list/1'}" title="Blog">二手手机</a>
+                            </li>
+                            <li class="dropdown menu-blog-page menu-item-has-child">
+                                <a th:href="@{'/frontCategory/list/2'}" title="Blog">二手数码</a>
+                            </li>
+                            <li class="dropdown menu-blog-page menu-item-has-child">
+                                <a th:href="@{'/frontCategory/list/3'}" title="Blog">二手图书</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="row top-row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="single-item js-banner">
+                            <div class="slide-img" th:each="banner:${banners}">
+                                <img th:src="${banner.img1}" alt="images" class="img-reponsive">
+                                <div class="slide-content">
+                                    <h3><span class="strong"></span></h3>
+                                    <p></p>
+                                </div>
+                                <a href="/goods/detail/8" class="slide-button">查看详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bigdeal">
+    <div class="container">
+        <div class="label label-1">白菜价</div>
+        <div class="sale-list">
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <div class="product-item ver4 top-inner" th:each="cheapers:${cheaper}" th:if="${cheapers.id == 1}">
+                        <div class="prod-item-img">
+                            <a th:href="@{'/goods/detail/'+${cheapers.id}}"><img th:src="${cheapers.picture1}" alt="images" class="img-reponsive"></a>
+                            <div class="prod-choose">
+                                <div class="prod-color">
+                                    <span class="dot"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="prod-price">
+                                    <span class="price old">￥[[${cheapers.originalPrice}]]</span>
+                                    <span class="price-ver2 price-lg">￥[[${cheapers.price}]]</span>
+                                    <span class="productPriceDiscount">直降<br><span class="strong" th:text="${cheapers.originalPrice}-${cheapers.price}"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prod-info">
+                            <h3><a class="prod-name" th:href="@{'/goods/detail/'+${cheapers.id}}" title="">[[${cheapers.goodsName}]]</a></h3>
+                            <div class="prod-description">
+                                <span>[[${cheapers.goodsDetail}]]</span>
+                            </div>
+                            <div class="countdown" data-countdown="countdown" data-date="5-25-2020-00-00-00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 ">
+                    <div class="product-item ver1 padding--bottom margin-r" th:each="cheapers:${cheaper}" th:if="${cheapers.id == 4}">
+                        <div class="prod-item-img set--width">
+                            <a class="image" th:href="@{'/goods/detail/'+${cheapers.id}}"><img th:src="${cheapers.picture1}" alt="images" class="img-responsive"></a>
+                        </div>
+                        <div class="prod-info ver1">
+                            <h3><a th:href="@{'/goods/detail/'+${cheapers.id}}" title="">[[${cheapers.goodsName}]]</a></h3>
+                            <div class="prod-price">
+                                <span class="price old">￥[[${cheapers.originalPrice}]]</span>
+                                <span class="price">￥[[${cheapers.price}]]</span>
+                            </div>
+                        </div>
+                        <div class="label label-2 blue">New</div>
+                    </div>
+                    <div class="product-item ver1 margin-r "  th:each="cheapers:${cheaper}" th:if="${cheapers.id == 5}">
+                        <div class="prod-item-img set--width">
+                            <a class="image" th:href="@{'/goods/detail/'+${cheapers.id}}"><img th:src="${cheapers.picture1}" alt="images" class="img-responsive"></a>
+                        </div>
+                        <div class="prod-info ver1">
+                            <h3><a th:href="@{'/goods/detail/'+${cheapers.id}}" title="">[[${cheapers.goodsName}]]</a></h3>
+                            <div class="prod-price">
+                                <span class="price old">￥[[${cheapers.originalPrice}]]</span>
+                                <span class="price">￥[[${cheapers.price}]]</span>
+                            </div>
+                        </div>
+                        <div class="label label-2 red">Hot</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="featured-product">
+    <div class="container">
+        <div class="heading-v1">
+            <h3 class="pull-left">精选好货</h3>
+            <ul class="otherr-link pull-right">
+                <li class="active"><a data-toggle="pill" href="#all">所有</a></li>
+                <li><a data-toggle="pill" href="#elec">手机</a></li>
+                <li><a data-toggle="pill" href="#fashion">数码</a></li>
+                <li><a data-toggle="pill" href="#it">图书</a></li>
+                <li><a data-toggle="pill" href="#food">服饰</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="tab-content">
+            <div id="all" class="tab-pane fade in active">
+                <div class="prod-fea-list">
+                    <div class="row" >
+                        <div class="col-md-15 col-sm-4 col-xs-6" th:each="goods:${chosen}">
+                            <input type="hidden" name="sellerId" th:id="${'sellerId'+goods.id}" th:value="${goods.sellerId}"/>
+                            <div class="product-item ver2" >
+                                <div class="prod-item-img bd-style-2">
+                                    <a th:href="@{'/goods/detail/'+${goods.id}}"><img th:src="${goods.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="button">
+                                        <a href="javascript:void(0);"  class="addcart" th:onclick="'addToCart('+${goods.id}+')'">添加到购物车</a>
+                                        <a th:href="${goods.picture1}" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="prod-info">
+                                    <h3><a href="#">[[${goods.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price">[[${goods.price}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="elec" class="tab-pane fade " >
+                <div class="prod-fea-list">
+                    <div class="row">
+                        <div class="col-md-15 col-sm-4 col-xs-6" th:each="phoneSel:${chosen}" th:if="${phoneSel.categoryId == 1}">
+                            <div class="product-item ver2" >
+                                <div class="prod-item-img bd-style-2">
+                                    <a th:href="@{'/goods/detail/'+${phoneSel.id}}"><img th:src="${phoneSel.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="button">
+                                        <a href="#" class="addcart" th:onclick="'addToCart('+${phoneSel.id}+')'">添加到购物车</a>
+                                        <a th:href="${phoneSel.picture1}" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="prod-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${phoneSel.id}}">[[${phoneSel.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price">￥[[${phoneSel.price}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="fashion" class="tab-pane fade " >
+                <div class="prod-fea-list">
+                    <div class="row">
+                        <div class="col-md-15 col-sm-4 col-xs-6" th:each="fashion:${chosen}" th:if="${fashion.categoryId == 2}">
+                            <div class="product-item ver2" >
+                                <div class="prod-item-img bd-style-2">
+                                    <a th:href="@{'/goods/detail/'+${fashion.id}}"><img th:src="${fashion.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="button">
+                                        <a href="#" class="addcart" th:onclick="'addToCart('+${fashion.id}+')'">添加到购物车</a>
+                                        <a th:href="${fashion.picture1}" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="prod-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${fashion.id}}">[[${fashion.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price">￥[[${fashion.price}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="it" class="tab-pane fade " >
+                <div class="prod-fea-list">
+                    <div class="row">
+                        <div class="col-md-15 col-sm-4 col-xs-6" th:each="it:${chosen}" th:if="${it.categoryId == 3}">
+                            <div class="product-item ver2" >
+                                <div class="prod-item-img bd-style-2">
+                                    <a th:href="@{'/goods/detail/'+${it.id}}"><img th:src="${it.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="button">
+                                        <a href="#" class="addcart" th:onclick="'addToCart('+${it.id}+')'">添加到购物车</a>
+                                        <a th:href="${it.picture1}" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="prod-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${it.id}}">[[${it.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price">￥[[${it.price}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="food" class="tab-pane fade " >
+                <div class="prod-fea-list">
+                    <div class="row">
+                        <div class="col-md-15 col-sm-4 col-xs-6" th:each="food:${chosen}" th:if="${food.categoryId == 5}">
+                            <div class="product-item ver2" >
+                                <div class="prod-item-img bd-style-2">
+                                    <a th:href="@{'/goods/detail/'+${food.id}}"><img th:src="${food.picture1}" alt="images" class="img-responsive"></a>
+                                    <div class="button">
+                                        <a href="#" class="addcart" th:onclick="'addToCart('+${food.id}+')'">添加到购物车</a>
+                                        <a th:href="${food.picture1}" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="prod-info">
+                                    <h3><a th:href="@{'/goods/detail/'+${food.id}}">[[${food.goodsName}]]</a></h3>
+                                    <div class="prod-price">
+                                        <span class="price">￥[[${food.price}]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="popular-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="heading-v2">
+                    <ul class="breadcrumb-ver1">
+                        <li class="active"><a data-toggle="pill" href="#popular">最热</a></li>
+                        <li><a data-toggle="pill" href="#new">最新</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="popular" class="tab-pane fade in active">
+                        <div class="pp-list">
+                            <div class="row top-row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" th:each="hotGoods:${goodsAll}" th:if="${hotGoods.heat > 70}">
+                                    <div class="product-item ver2">
+                                        <div class="prod-item-img bd-style-2">
+                                            <a th:href="@{'/goods/detail/'+${hotGoods.id}}"><img th:src="${hotGoods.picture1}" alt="images" class="img-responsive"></a>
+                                            <div class="button">
+                                                <a href="#" class="addcart addcart-v2" th:onclick="'addToCart('+${hotGoods.id}+')'">添加到购物车</a>
+                                                <a href="#" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="prod-info">
+                                            <h3><a th:href="@{'/goods/detail/'+${hotGoods.id}}">[[${hotGoods.goodsName}]]</a></h3>
+                                            <div class="p-price">
+                                                <span class="price old">￥[[${hotGoods.originalPrice}]]</span>
+                                                <span class="price">￥[[${hotGoods.price}]]</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="new" class="tab-pane fade">
+                        <div class="pp-list">
+                            <div class="row top-row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 no-padding-right" th:each="newGoods:${goodsAll}" th:if="${#dates.month(newGoods.created) > 9}">
+                                    <div class="product-item ver2">
+                                        <div class="prod-item-img bd-style-2">
+                                            <a th:href="@{'goods/detail/'+${newGoods.id}}"><img th:src="${newGoods.picture1}" alt="images" class="img-responsive"></a>
+                                            <div class="button">
+                                                <a href="#" class="addcart addcart-v2" th:onclick="'addToCart('+${newGoods.id}+')'">添加到购物车</a>
+                                                <a href="#" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="prod-info">
+                                            <h3><a th:href="@{'goods/detail/'+${newGoods.id}}">[[${newGoods.goodsName}]]</a></h3>
+                                            <div class="p-price">
+                                                <span class="price old">￥[[${newGoods.originalPrice}]]</span>
+                                                <span class="price">￥[[${newGoods.Price}]]</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                <aside class="widget brand-v1">
+                    <div class="heading-v1">
+                        <h3>已售出</h3>
+                    </div>
+                    <div class="brand-list-v1" th:each="sellOut:${goodsAll}" th:if="${sellOut.sellStatus == 0}">
+                        <div class="product-item ver1 bd-style">
+                            <div class="prod-item-img">
+                                <a th:href="@{'/goods/detail/'+${sellOut.id}}"><img th:src="${sellOut.picture1}" alt="images" class="img-responsive"></a>
+                            </div>
+                            <div class="prod-info">
+                                <h3><a th:href="@{'/goods/detail/'+${sellOut.id}}">[[${sellOut.goodsName}]]</a></h3>
+                                <div class="p-price">
+                                    <span class="price old">￥[[${sellOut.originalPrice}]]</span>
+                                    <span class="price black">￥[[${sellOut.price}]]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="cate">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="heading-v3 dif">
+                    <img src="/assets/img/smicon.png" alt="images" class="img-responsive">
+                    <span>智能手机</span>
+                </div>
+                <div class="product-item ver3">
+                    <div class="photo">
+                        <a href="#"><img src="/assets/xximg/button11.jpg" alt="images" class="img-responsive"></a>
+                    </div>
+                    <ul>
+                        <li  th:each="categoryTwo:${categoryTwos}" th:if="${categoryTwo.categoryId == 1}">
+                            <a th:href="@{'/buttonSearch?buttonSearch='+${categoryTwo.twoName}}">[[${categoryTwo.twoName}]]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="heading-v3">
+                    <img src="/assets/img/laptopicon.png" alt="images" class="img-responsive">
+                    <span>智能家电</span>
+                </div>
+                <div class="product-item ver3">
+                    <div class="photo">
+                        <a href="#"><img src="/assets/xximg/button22.jpg" alt="images" class="img-responsive"></a>
+                    </div>
+                    <ul>
+                        <li  th:each="categoryTwo:${categoryTwos}" th:if="${categoryTwo.categoryId == 4}">
+                            <a th:href="@{'/buttonSearch?buttonSearch='+${categoryTwo.twoName}}">[[${categoryTwo.twoName}]]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="heading-v3">
+                    <img src="/assets/img/camicon.png" alt="images" class="img-responsive">
+                    <span>数码</span>
+                </div>
+                <div class="product-item ver3">
+                    <div class="photo">
+                        <a href="#"><img src="/assets/xximg/button31.jpg" alt="images" class="img-responsive"></a>
+                    </div>
+                    <ul>
+                        <li  th:each="categoryTwo:${categoryTwos}" th:if="${categoryTwo.categoryId == 2}">
+                            <a th:href="@{'/buttonSearch?buttonSearch='+${categoryTwo.twoName}}">[[${categoryTwo.twoName}]]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+<script>
+    function addToCart(goodsId) {
+        let sellerId = $("#sellerId"+goodsId).val();
+        $.ajax({
+            url: '/cart/goods/add',
+            type: 'post',
+            data: {
+                "goodsId": goodsId,
+                "sellerId": sellerId
+            },
+            dataType:'json',
+            success: function (data) {
+                alert('添加成功');
+                window.location.reload();
+            },
+            error:function (data) {
+                if (data.status = 401){
+                    alert("请先登录");
+                    window.location.href = '/login';
+                }
+            }
+        })
+    }
+
+    function deleteGoods(goodsId) {
+        alert('确定要删除吗？');
+        $.ajax({
+            url: '/cart/goods/delete',
+            type: 'post',
+            data: {
+                "goodsId": goodsId
+            },
+            success: function (data) {
+                window.location.reload();
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

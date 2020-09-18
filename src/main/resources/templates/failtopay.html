@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head.html"/>
+<head>
+    <title>订单失败</title>
+</head>
+<body>
+<header th:include="common/header.html"/>
+<!-- header end -->
+<section class="checkout-page">
+    <div class="container">
+        <div class="heading-sub">
+            <h3 class="pull-left">支付失败</h3>
+            <ul class="other-link-sub pull-right">
+                <li><a href="/">主页</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="breadcrumb" style="padding-left: 114px;">
+            <li>
+                <a href="#" >01. 购物车</a>
+            </li>
+            <li>
+                <a href="#">02. 订单完善</a>
+            </li>
+            <li>
+                <a href="#" title="" class="active" style="color: #e02222">03. 支付失败</a>
+            </li>
+        </ul>
+        <div class="complete-page text-center">
+            <h2 class="status"><span class="fa fa-times-circle fa-4 icon-check" style="color: #e02222 "></span>抱歉 支付失败.</h2>
+        </div>
+    </div>
+</section>
+<div th:include="common/features.html"/>
+<footer th:include="common/footer.html"/>
+
+<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+</body>
+</html>
