@@ -5,6 +5,7 @@
 SpringBoot+MyBatis+Thymeleaf+Redis 
 
  **技术描述** ：
-•使用SpringBoot作为项目基础框架和使用Thymeleaf模板引擎
-•接入阿里云短信、支付宝沙箱、阿里云存储服务
-•使用Redis进行缓存管理
+
+- 使用SpringBoot作为项目基础框架和使用Thymeleaf模板引擎
+- 接入阿里云短信、支付宝沙箱、阿里云存储服务
+- 使用Redis进行缓存管理
