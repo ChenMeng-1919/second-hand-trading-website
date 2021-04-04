@@ -12,12 +12,12 @@ public class AlipayConfig {
     /**
      * 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
      */
-    public static String app_id = "2016101700708519";
+    public static String app_id = "x";
 
     /**
      * 商户私钥，您的PKCS8格式RSA2私钥
      */
-    public static String merchant_private_key = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqwHLNspF3XMHb12/G923IEYSXUO2RcPlrMo5unTWRX74CwtCyBynRow+YWoRqX9FxRCPhc9xq41WSlhvyo1ylNwH2khYtfZCSy/ImdR1leBuR2LfQCVX5iU1WYcAiOBxB5FwmyoBTlpv/rr0s10tJOVJn0P8Q0LObp/jDnfTI4KK+zuFmKW8QLjokPZbLPodQHtzIY6sBTVFRYmAFuMFGYwdefZwYLOlR60Y/CP1FbHSgWdIFzh5mgOql6+UeyosgNXriloN9SuvQqX+6D0byvmbBt3gaJ9whINQYcZ6X+Gi1Az4u+iAf2jFJrWzn8pAAR0SnSoQFhQAMYUgdVsWPAgMBAAECggEAIX7PBnrY/kk73hxM2QMAjhaho+1ELRu0UcsBFcHRGEtnwrLkrYeqNG2ASaq3/wX81/M99qP7wRwHVVIM+XQCYIaB5BSUNShEjAdl4RVoRtdg0SNqK20paGH+wcs7HXtUT7i0OwfOVJde0rE8eudg5WRRPfxJjMrj8Mzqh7Ucp6rXILJy+HOxq5u02hV+A7SEN/lvyPXr4SQSgMF0Ql5JzucoY1pMjPSsmNpVbn1/hj6zl5TXlMrrSHjv2S05bJaAVvyqd+oLB87cOPglbyGSyQXWcpc/jwUgI873i14FdawGwnAuVosqpZxQKp4CrAU0jvUN0F9sFhs4fk8G3PulAQKBgQDbz+yJ4edz1Hp9TKpMgNGVVz74jQS0niCuldQpaJx14P6gfQQEjzRZqwoPVTZdHElqJ9N0nGcfQMsi85z8AZnbJ1exBRbPZGsgqIMxqB0IAKR0JKiw1nwq4PM3Lu59+kYz8t3+lMHkgWNT++nMWYTxpKozvs4QNb7NKS08k8ObXwKBgQDG3Nn8LZ+b+9+yNnkpnBj+d7n7cULUJ+oiPP13X7pmNwQJo3Pb5BFhqZvzq8un5FpxGJ2jyocD295lXUx4Ic+7prnBzxJc6+m/2Ya3ELENgpOqcNE+neb4SAB2ogibXXenU+3Lp7r/OkiNMhTs+zwQVgF9w2xu7CTaSNkjq+8z0QKBgQCTlIEqfeqo4RKwR6XbIW4Vh3M2628qWTR2IxBEEQFjP4GVfPoSmZc7UNO7QanzT8eWp1CYbV3rJNR+DfPrWqPS+RIuPs12xuQKFDmpQEbllZDUjbxYpljNbSS+exsSp9M0k64qe/PGGHz46Ryq37ubhcPkZAnz5jHJiwjdMBRXnwKBgCxmEqUi6ofA7Gi1kMehelMWGAfzeaA0aSnLxCtqzAsWLWiZfbySZu8PFyqIKKgLa8XkYQ24ofxSkoy/D9uicObMipyixs7IPSAASPuGVoFVrfJXzd/VEURNjwztkE5fx98r9eOKR03EjX44uENQtFBRY3PYtdTuFCxIJ3K3aGiBAoGBALS++i0/prRwk2YdmIggoXYSYTfm+AQmPQ1IcMeQAdxWkGAsAUSOag1HWkDVjq1jBylD6ER16SNZYwYyk4wDTUnV/idnc4DkXXpCSE6dzGP8o/0wWMmuDUKIsR/IJKBOZ7+mQGzSYmasJmAjxe3jb415DKwg0cfoZv45jCJ/PTVP";
+    public static String merchant_private_key = "x";
 
     /**
      * 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥
@@ -32,7 +32,7 @@ public class AlipayConfig {
     /**
      * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
      */
-    public static String return_url = "http://458bwe.natappfree.cc/checkout/returnUrl";
+    public static String return_url = "http://ppji7j.natappfree.cc/checkout/returnUrl";
 
     /**
      * 签名方式

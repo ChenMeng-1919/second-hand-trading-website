@@ -17,12 +17,12 @@ public class SendSmsUtil {
     /**
      * 阿里云短信 accesskey_id
      */
-    private static final String ACCESSKEYID = "LTAI4FpbVyixp5LA5jrDsPGq";
+    private static final String ACCESSKEYID = "x";
 
     /**
      * 阿里云短信 secret
      */
-    private static final String SECRET = "dcNVI0I82ucLb4TK8oAHRFJHvjvrCl";
+    private static final String SECRET = "x";
 
     /**
      * 阿里云短信签名名称
