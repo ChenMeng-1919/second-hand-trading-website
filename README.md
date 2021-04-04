@@ -12,6 +12,7 @@ SpringBoot+MyBatis+Thymeleaf+Redis
 
 本人毕设只适合初学者，感谢浏览！！！ 
 非常不好意思，数据库文件现在才上传，各位想看的老铁真的非常不好意思。
+里面的一些阿里的配置各位可以自己去阿里上弄一下，百度一下很简单的
 
 以下是一些截图：
 ![首页1](https://images.gitee.com/uploads/images/2021/0404/151155_5a26eb91_7557077.png "首页1.png")
