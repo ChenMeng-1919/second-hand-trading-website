@@ -7,9 +7,9 @@ spring:
       content-type: text/html
   datasource:
     druid:
-      url: jdbc:mysql:///xx-shop?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://8.140.29.174:3306/xm-SecondHTW?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
       username: root
-      password: root
+      password: 123654
       initial-size: 1
       min-idle: 1
       max-active: 20
