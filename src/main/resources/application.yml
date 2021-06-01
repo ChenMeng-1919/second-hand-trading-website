@@ -39,7 +39,7 @@ pagehelper:
 #redis
 redis:
   #redis机器ip
-  hostname: 127.0.0.1
+  hostname: 8.140.29.174
   #redis端口
   port: 6379
   #redis密码
